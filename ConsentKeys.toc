@@ -1,9 +1,12 @@
 ## Interface: 100002
-## Title: ConsetKeys
+## Title: ConsentKeys
 ## Author: Philouxd
 ## Version: 1.0.0
 
+## SavedVariables: ConsentKeys
+
 modules\Configurations.lua
 modules\Utilities.lua
+modules\configuration-menu\Menu.lua
 
 ConsentKeys.lua

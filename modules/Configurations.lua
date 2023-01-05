@@ -1,8 +1,11 @@
+-- Initialize global variables
+ConsentKeyAddonName = ConsentKeyAddonName or "ConsentKeys"
+ConsentKey = ConsentKey or {}
+
+-- import variables locally
+local addonName, addon = ConsentKeyAddonName, ConsentKey
 local _G = _G
 
--- Initialize global variables
-AddonName = AddonName or "ConsentKeys"
-Addon = Addon or {}
 
 -- Create table to save global values that should be stored
 if not _G["ConsentKeys"] then
@@ -27,26 +30,5 @@ if not consentKeys["WhitelistedChannels"] then
 end
 
 if not consentKeys["WhitelistChannels"] then
-    consentKeys["WhitelistChannesl"] = false
+    consentKeys["WhitelistChannels"] = false
 end
-
--- popup 
-StaticPopupDialogs["SHARE_KEY_TO_OTHERS"] = {
-    text = "%s wants you to share your key in %s.\nDo you agree?",
-    button1 = "Yes",
-    button2 = "No",
-    OnAccept = 
-        function(self, data)
-            local key = addon:getPlayerKeystone()
-            print(data)
-            SendChatMessage("ConsentKey : " .. gsub(key,"\124", "\124\124"),
-                            "PARTY",
-                            nil,
-                            "CHANNEL"
-            )
-        end,
-    timeout = 0,
-    whileDead = true,
-    hideOnEscape = true,
-    preferredIndex = 3
-}

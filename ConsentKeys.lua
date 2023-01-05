@@ -1,7 +1,14 @@
 local addonName, addon = ...
 local _G = _G
 
--- party messages
+-- generic event handler
+function handleEvent(channel, message, player, channelType)
+    if message == "!keys" then
+        StaticPopup_Show("SHARE_KEY_TO_OTHERS", player, channelType)
+    end
+end
+
+-- party message listener
 local PartyEventFrame =  CreateFrame("Frame", "FrameEvent")
 PartyEventFrame:RegisterEvent("CHAT_MSG_PARTY")
 
@@ -11,7 +18,7 @@ PartyEventFrame:SetScript("OnEvent",
     end
 )
 
--- guild messages
+-- guild message listener
 local GuildEventFrame =  CreateFrame("Frame", "FrameEvent")
 GuildEventFrame:RegisterEvent("CHAT_MSG_GUILD")
 
@@ -21,7 +28,7 @@ GuildEventFrame:SetScript("OnEvent",
     end
 )
 
--- raid messages
+-- raid message listener
 local RaidEventFrame =  CreateFrame("Frame", "FrameEvent")
 RaidEventFrame:RegisterEvent("CHAT_MSG_RAID")
 
@@ -31,7 +38,7 @@ RaidEventFrame:SetScript("OnEvent",
     end
 )
 
---whisper messages
+--whisper message listener
 local WhisperEventFrame =  CreateFrame("Frame", "FrameEvent")
 WhisperEventFrame:RegisterEvent("CHAT_MSG_WHISPER")
 
@@ -40,10 +47,3 @@ WhisperEventFrame:SetScript("OnEvent",
         handleEvent(channel, message, player, "whisper")
     end
 )
-
--- handle events here
-function handleEvent(channel, message, player, type)
-    if message == "!keys" then
-        StaticPopup_Show("SHARE_KEY_TO_OTHERS", player, "party")
-    end
-end

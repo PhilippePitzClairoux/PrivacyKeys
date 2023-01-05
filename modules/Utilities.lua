@@ -1,5 +1,4 @@
 local addonName, addon = ...
-local _G = _G
 
 -- Channel functions
 function addon:isChannelWhitelisted(channelName)
@@ -23,13 +22,37 @@ end
 
 -- find keystone
 function addon:getPlayerKeystone()
-    for bag=0, NUM_BAG_SLOTS do
-        for item=1, GetContainerNumSlots(bag) do
-            local itemLink = GetItemLink(bag, slot)
-            if String.contains(itemLink, "Keystone: ") then
-                return itemLink
+    local bag, item, currentItemLink
+    for bag=0,4 do
+        for item=1,C_Container.GetContainerNumSlots(bag) do
+            currentItemLink = C_Container.GetContainerItemLink(bag, item)
+            if currentItemLink and string.find(currentItemLink, "Keystone: ") then
+                return currentItemLink
             end
         end
     end
-    return "I don't have a key"
+    return "Unable to find key."
 end
+
+-- popup 
+StaticPopupDialogs["SHARE_KEY_TO_OTHERS"] = {
+    text = "%s wants you to share your key in %s.\nDo you agree?",
+    button1 = "Yes",
+    button2 = "No",
+    OnAccept = 
+        function(self)
+            local key = addon:getPlayerKeystone()
+            local channel = (self.text.text_arg2 == "whisper" and "WHISPER" or "CHANNEL")
+            local respondPlayer = (channel == "WHISPER" and self.text.text_arg1 or nil)
+
+            SendChatMessage("ConsentKey : " .. key,
+                            string.upper(self.text.text_arg2),
+                            nil,
+                            respondPlayer
+            )
+        end,
+    timeout = 0,
+    whileDead = true,
+    hideOnEscape = true,
+    preferredIndex = 3
+}
