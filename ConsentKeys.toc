@@ -3,7 +3,7 @@
 ## Author: Philouxd
 ## Version: 1.0.0
 
-modules\Configrations.lua
+modules\Configurations.lua
 modules\Utilities.lua
 
 ConsentKeys.lua

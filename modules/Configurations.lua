@@ -32,12 +32,12 @@ end
 
 -- popup 
 StaticPopupDialogs["SHARE_KEY_TO_OTHERS"] = {
-    text = "",
-    button1 = "",
-    button2 = "",
+    text = "%s wants you to share your key in %s.\nDo you agree?",
+    button1 = "Yes",
+    button2 = "No",
     OnAccept = 
         function()
-            print("AYYYY")
+            SendChatMessage("ConsentKey : [key here]", "PARTY", nil, "CHANNEL")
         end,
     timeout = 0,
     whileDead = true,
