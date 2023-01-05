@@ -20,3 +20,16 @@ function addon:isPartyWhitelisted(...)
 
     return true
 end
+
+-- find keystone
+function addon:getPlayerKeystone()
+    for bag=0, NUM_BAG_SLOTS do
+        for item=1, GetContainerNumSlots(bag) do
+            local itemLink = GetItemLink(bag, slot)
+            if String.contains(itemLink, "Keystone: ") then
+                return itemLink
+            end
+        end
+    end
+    return "I don't have a key"
+end

@@ -7,6 +7,7 @@ PartyEventFrame:RegisterEvent("CHAT_MSG_PARTY")
 
 PartyEventFrame:SetScript("OnEvent",
     function(self, channel, message, player)
+        print("GOT EVENT")
         if message == "!keys" then
             StaticPopup_Show("SHARE_KEY_TO_OTHERS", player, "party")
         end
