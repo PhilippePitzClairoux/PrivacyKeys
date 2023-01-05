@@ -36,8 +36,9 @@ StaticPopupDialogs["SHARE_KEY_TO_OTHERS"] = {
     button1 = "Yes",
     button2 = "No",
     OnAccept = 
-        function()
+        function(self, data)
             local key = addon:getPlayerKeystone()
+            print(data)
             SendChatMessage("ConsentKey : " .. gsub(key,"\124", "\124\124"),
                             "PARTY",
                             nil,

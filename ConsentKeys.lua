@@ -7,10 +7,7 @@ PartyEventFrame:RegisterEvent("CHAT_MSG_PARTY")
 
 PartyEventFrame:SetScript("OnEvent",
     function(self, channel, message, player)
-        print("GOT EVENT")
-        if message == "!keys" then
-            StaticPopup_Show("SHARE_KEY_TO_OTHERS", player, "party")
-        end
+        handleEvent(channel, message, player, "party")
     end
 )
 
@@ -20,7 +17,7 @@ GuildEventFrame:RegisterEvent("CHAT_MSG_GUILD")
 
 GuildEventFrame:SetScript("OnEvent",
     function(self, channel, message, player)
-        
+        handleEvent(channel, message, player, "guild")
     end
 )
 
@@ -30,7 +27,7 @@ RaidEventFrame:RegisterEvent("CHAT_MSG_RAID")
 
 RaidEventFrame:SetScript("OnEvent",
     function(self, channel, message, player)
-        
+        handleEvent(channel, message, player, "raid")
     end
 )
 
@@ -40,12 +37,13 @@ WhisperEventFrame:RegisterEvent("CHAT_MSG_WHISPER")
 
 WhisperEventFrame:SetScript("OnEvent",
     function(self, channel, message, player)
-        
+        handleEvent(channel, message, player, "whisper")
     end
 )
 
 -- handle events here
-
-function getPlayerResponse(player, channel)
-    
+function handleEvent(channel, message, player, type)
+    if message == "!keys" then
+        StaticPopup_Show("SHARE_KEY_TO_OTHERS", player, "party")
+    end
 end
