@@ -29,3 +29,18 @@ end
 if not consentKeys["WhitelistChannels"] then
     consentKeys["WhitelistChannesl"] = false
 end
+
+-- popup 
+StaticPopupDialogs["SHARE_KEY_TO_OTHERS"] = {
+    text = "",
+    button1 = "",
+    button2 = "",
+    OnAccept = 
+        function()
+            print("AYYYY")
+        end,
+    timeout = 0,
+    whileDead = true,
+    hideOnEscape = true,
+    preferredIndex = 3
+}

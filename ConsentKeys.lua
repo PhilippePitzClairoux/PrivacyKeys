@@ -8,7 +8,7 @@ PartyEventFrame:RegisterEvent("CHAT_MSG_PARTY")
 PartyEventFrame:SetScript("OnEvent",
     function(self, channel, message, player)
         if message == "!keys" then
-            
+            StaticPopup_Show("SHARE_KEY_TO_OTHERS")
         end
     end
 )
@@ -44,14 +44,7 @@ WhisperEventFrame:SetScript("OnEvent",
 )
 
 -- handle events here
-function getPlayerResponse(player, channel)
-    local frame = CreateFrame("Frame", "Frame")
-    frame:SetPoint("CENTER")
-    frame:SetSize(100, 100)
-    frame:AddLine(player .. " has requested you to share your key in " .. channel)
 
-    local yesButton = CreateFrame()
-    local noButton = CreateFrame()
-    
+function getPlayerResponse(player, channel)
     
 end
