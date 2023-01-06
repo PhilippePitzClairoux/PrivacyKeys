@@ -14,7 +14,6 @@ frame:SetScript("OnShow",
         title:SetText(addonName)
 
         -- checkboxes enable/disable
-
         local player_whitelisting = CreateFrame("CheckButton",
                                                 "PlayerWhitelisting",
                                                 frame,
@@ -44,6 +43,23 @@ frame:SetScript("OnShow",
         )
 
         -- list of players/channels
+        local player_whitelisting_list_dropdown = CreateFrame("Frame",
+                                                     "WhitelistDropDown",
+                                                     frame,
+                                                     "UIDropDownMenuTemplate")
+        player_whitelisting_list_dropdown:SetPoint("BOTTOMLEFT")
+        UIDropDownMenu_SetWidth(player_whitelisting_list_dropdown, 200)
+        UIDropDownMenu_SetText(player_whitelisting_list_dropdown, "Whitelisted players")
+        UIDropDownMenu_Initialize(player_whitelisting_list_dropdown, addon.populatePlayersDropDown)
+
+        local channel_whitelisting_list_dropdown = CreateFrame("Frame",
+                                                              "WhitelistDropDown",
+                                                              frame,
+                                                              "UIDropDownMenuTemplate")
+        channel_whitelisting_list_dropdown:SetPoint("BOTTOMRIGHT")
+        UIDropDownMenu_SetWidth(channel_whitelisting_list_dropdown, 200)
+        UIDropDownMenu_SetText(channel_whitelisting_list_dropdown, "Whitelisted channels")
+        UIDropDownMenu_Initialize(channel_whitelisting_list_dropdown, addon.populateDropDownChannels)
     end
 )
 

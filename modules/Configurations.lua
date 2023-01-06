@@ -13,22 +13,24 @@ if not _G["ConsentKeys"] then
 end
 
 -- Populate table with important values to store (if they don't exist)
-local consentKeys = _G["ConsentKeys"]
-
 -- player whitelist
-if not consentKeys["WhitelistedPlayers"] then
-    consentKeys["WhitelistedPlayers"] = {}
+if not _G["ConsentKeys"]["WhitelistedPlayers"] then
+    _G["ConsentKeys"]["WhitelistedPlayers"] = {}
 end
 
-if not consentKeys["WhitelistPlayers"] then
-    consentKeys["WhitelistPlayers"] = false
+if not _G["ConsentKeys"]["WhitelistPlayers"] then
+    _G["ConsentKeys"]["WhitelistPlayers"] = false
 end
 
 -- channel whitelist (ex: guild, raid, party)
-if not consentKeys["WhitelistedChannels"] then
-    consentKeys["WhitelistedChannesl"] = {}
+if not _G["ConsentKeys"]["WhitelistedChannels"] then
+    _G["ConsentKeys"]["WhitelistedChannels"] = {
+        party=false,
+        raid=false,
+        guild=false
+    }
 end
 
-if not consentKeys["WhitelistChannels"] then
-    consentKeys["WhitelistChannels"] = false
+if not _G["ConsentKeys"]["WhitelistChannels"] then
+    _G["ConsentKeys"]["WhitelistChannels"] = false
 end

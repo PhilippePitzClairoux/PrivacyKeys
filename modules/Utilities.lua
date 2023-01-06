@@ -1,4 +1,5 @@
 local addonName, addon = ...
+local _G = _G
 
 -- Channel functions
 function addon:isChannelWhitelisted(channelName)
@@ -10,14 +11,45 @@ function addon:isPlayerWhitelisted(playerName)
     return _G["ConsentKeys"]["WhitelistedPlayers"][playerName] or false
 end
 
-function addon:isPartyWhitelisted(...)
-    for player in ... do
-        if not isPlayerWhitelisted(player) then
+function addon:isPartyWhitelisted()
+    for player=0, GetNumGroupMembers() - 1 do
+        local playerFullName = UnitFullName("party" .. player)
+        if playerFullName and not isPlayerWhitelisted(playerFullName) then
             return false
         end
     end
 
     return true
+end
+
+-- Menu functions
+addon.populatePlayersDropDown = 
+function(frame, level, menuList)
+    for key, value in pairs(_G["ConsentKeys"]["WhitelistedPlayers"]) do
+        local info = UIDropDownMenu_CreateInfo()
+        info.text, info.checked = key, value
+        info.func =
+            function(self)
+                _G["ConsentKeys"]["WhitelistedPlayers"][self.value] = 
+                    not _G["ConsentKeys"]["WhitelistedPlayers"][self.value]
+            end
+
+        UIDropDownMenu_AddButton(info)
+    end
+end
+
+addon.populateDropDownChannels = 
+function(frame, level, menuList)
+    for key, value in pairs(_G["ConsentKeys"]["WhitelistedChannels"]) do
+        local info = UIDropDownMenu_CreateInfo()
+        info.text, info.checked = key, value
+        info.func =
+            function(self)
+                _G["ConsentKeys"]["WhitelistedChannels"][self.value] = 
+                    not _G["ConsentKeys"]["WhitelistedChannels"][self.value]
+            end
+        UIDropDownMenu_AddButton(info)
+    end
 end
 
 -- find keystone

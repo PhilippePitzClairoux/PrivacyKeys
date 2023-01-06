@@ -1,8 +1,17 @@
 local addonName, addon = ...
 local _G = _G
 
+local playerWhitelistingEnabled = _G["ConsentKey"]["WhitelistPlayers"]
+local channelWhitelistingEnabled = _G["ConsentKey"]["WhitelistChannels"]
+
+
 -- generic event handler
 function handleEvent(channel, message, player, channelType)
+    if (playerWhitelistingEnabled and addon:isPlayerWhitelisted(player)) or 
+        (channelWhitelistingEnabled and addon:isChannelWhitelisted(channel)) then
+            
+    end
+
     if message == "!keys" then
         StaticPopup_Show("SHARE_KEY_TO_OTHERS", player, channelType)
     end
