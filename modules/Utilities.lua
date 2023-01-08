@@ -3,18 +3,18 @@ local _G = _G
 
 -- Channel functions
 function addon:isChannelWhitelisted(channelName)
-    return _G["ConsentKeys"]["WhitelistedChannels"][channelName] or false
+    return _G[addonName]["WhitelistedChannels"][channelName] or false
 end
 
 -- Player functions
 function addon:isPlayerWhitelisted(playerName)
-    return _G["ConsentKeys"]["WhitelistedPlayers"][playerName] or false
+    return _G[addonName]["WhitelistedPlayers"][playerName] or false
 end
 
 function addon:isPartyWhitelisted()
-    for player=0, GetNumGroupMembers() - 1 do
+    for player=1, GetNumGroupMembers() do
         local playerFullName = UnitFullName("party" .. player)
-        if playerFullName and not isPlayerWhitelisted(playerFullName) then
+        if playerFullName and not addon:isPlayerWhitelisted(playerFullName) then
             return false
         end
     end
@@ -22,16 +22,24 @@ function addon:isPartyWhitelisted()
     return true
 end
 
+-- Register multiple event for one frame
+addon.RegisterEvents =
+function (self, ...)
+	for key,value in pairs({...}) do
+		self:RegisterEvent(value)
+	end
+end
+
 -- Menu functions
 addon.populatePlayersDropDown = 
 function(frame, level, menuList)
-    for key, value in pairs(_G["ConsentKeys"]["WhitelistedPlayers"]) do
+    for key, value in pairs(_G[addonName]["WhitelistedPlayers"]) do
         local info = UIDropDownMenu_CreateInfo()
         info.text, info.checked = key, value
         info.func =
             function(self)
-                _G["ConsentKeys"]["WhitelistedPlayers"][self.value] = 
-                    not _G["ConsentKeys"]["WhitelistedPlayers"][self.value]
+                _G[addonName]["WhitelistedPlayers"][self.value] = 
+                    not _G[addonName]["WhitelistedPlayers"][self.value]
             end
 
         UIDropDownMenu_AddButton(info)
@@ -40,13 +48,13 @@ end
 
 addon.populateDropDownChannels = 
 function(frame, level, menuList)
-    for key, value in pairs(_G["ConsentKeys"]["WhitelistedChannels"]) do
+    for key, value in pairs(_G[addonName]["WhitelistedChannels"]) do
         local info = UIDropDownMenu_CreateInfo()
         info.text, info.checked = key, value
         info.func =
             function(self)
-                _G["ConsentKeys"]["WhitelistedChannels"][self.value] = 
-                    not _G["ConsentKeys"]["WhitelistedChannels"][self.value]
+                _G[addonName]["WhitelistedChannels"][self.value] = 
+                    not _G[addonName]["WhitelistedChannels"][self.value]
             end
         UIDropDownMenu_AddButton(info)
     end
@@ -73,18 +81,27 @@ StaticPopupDialogs["SHARE_KEY_TO_OTHERS"] = {
     button2 = "No",
     OnAccept = 
         function(self)
-            local key = addon:getPlayerKeystone()
-            local channel = (self.text.text_arg2 == "whisper" and "WHISPER" or "CHANNEL")
-            local respondPlayer = (channel == "WHISPER" and self.text.text_arg1 or nil)
 
-            SendChatMessage("ConsentKey : " .. key,
-                            string.upper(self.text.text_arg2),
-                            nil,
-                            respondPlayer
-            )
+            local channel = self.text.text_arg2
+            local respondPlayer = ((channel == "whisper" and self.text.text_arg1) or nil)
+            addon:sendKeyToChannel(channel, respondPlayer)
         end,
     timeout = 0,
     whileDead = true,
     hideOnEscape = true,
     preferredIndex = 3
 }
+
+function addon:extractChannel(channelType)
+    print(channelType)
+    return _G[addonName]["ChannelTypeMapping"][channelType]
+end
+
+function addon:sendKeyToChannel(channelType, respondPlayer)
+    local key = addon:getPlayerKeystone()
+    print(respondPlayer)
+    SendChatMessage("ConsentKey : " .. key,
+                    channelType,
+                    nil,
+                    respondPlayer)
+end

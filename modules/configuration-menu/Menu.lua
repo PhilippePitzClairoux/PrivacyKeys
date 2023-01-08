@@ -38,9 +38,11 @@ frame:SetScript("OnShow",
         channel_whitelisting:SetChecked(_G[addonName]["WhitelistChannels"])
         channel_whitelisting:SetScript("OnClick", 
             function(self)
-                _G[addonName]["WhitelistChannels"] = PlayerWhitelisting:GetChecked()
+                _G[addonName]["WhitelistChannels"] = ChannelWhitelisting:GetChecked()
             end
         )
+
+        -- add/remove players
 
         -- list of players/channels
         local player_whitelisting_list_dropdown = CreateFrame("Frame",
