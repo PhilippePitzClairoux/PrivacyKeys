@@ -93,13 +93,11 @@ StaticPopupDialogs["SHARE_KEY_TO_OTHERS"] = {
 }
 
 function addon:extractChannel(channelType)
-    print(channelType)
     return _G[addonName]["ChannelTypeMapping"][channelType]
 end
 
 function addon:sendKeyToChannel(channelType, respondPlayer)
     local key = addon:getPlayerKeystone()
-    print(respondPlayer)
     SendChatMessage("ConsentKey : " .. key,
                     channelType,
                     nil,
