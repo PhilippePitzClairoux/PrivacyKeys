@@ -1,9 +1,9 @@
 -- Initialize global variables
-ConsentKeyAddonName = ConsentKeyAddonName or "ConsentKeys"
-ConsentKey = ConsentKey or {}
+PrivacyKeysAddonName = PrivacyKeysAddonName or "PrivacyKeys"
+PrivacyKeys = PrivacyKeys or {}
 
 -- import variables locally
-local addonName, addon = ConsentKeyAddonName, ConsentKey
+local addonName, addon = PrivacyKeysAddonName, PrivacyKeys
 local _G = _G
 
 

@@ -1,12 +1,12 @@
 ## Interface: 100002
-## Title: ConsentKeys
+## Title: PrivacyKeys
 ## Author: Philouxd
 ## Version: 1.0.0
 
-## SavedVariables: ConsentKeys
+## SavedVariables: PrivacyKeys
 
 modules\Configurations.lua
 modules\Utilities.lua
 modules\configuration-menu\Menu.lua
 
-ConsentKeys.lua
+PrivacyKeys.lua

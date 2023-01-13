@@ -98,7 +98,7 @@ end
 
 function addon:sendKeyToChannel(channelType, respondPlayer)
     local key = addon:getPlayerKeystone()
-    SendChatMessage("ConsentKey : " .. key,
+    SendChatMessage("PrivacyKeys : " .. key,
                     channelType,
                     nil,
                     respondPlayer)
