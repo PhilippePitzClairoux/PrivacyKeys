@@ -1,4 +1,4 @@
-## Interface: 100002
+## Interface: 100005
 ## Title: PrivacyKeys
 ## Author: Philouxd
 ## Version: 1.0.0
