@@ -19,8 +19,6 @@ function handleEvent(channel, message, player)
             end
         end
 
-        print("Is channel whitelisted : " .. tostring(addon:isChannelWhitelisted(actualChannel)))
-        print("Channel Whitelisting enabled : " .. tostring(_G[addonName]["WhitelistChannels"] ))
         if (_G[addonName]["WhitelistChannels"] and addon:isChannelWhitelisted(actualChannel)) then
             addon:sendKeyToChannel(actualChannel, player)
             return nil
